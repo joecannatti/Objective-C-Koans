@@ -92,7 +92,7 @@ describe(@"Value Assertions", ^{
   });  
   
   it(@"can assert two variable contain the same pointer", ^{
-    //IdenticalTo means identical pointers
+    //IdenticalTo checks for identical pointers
     //but the compiler is smart about this and will use the same object if you do:
     //NSString *panda = @"panda";
     //NSString *samePanda = @"panda";
