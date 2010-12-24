@@ -63,7 +63,7 @@ describe(@"Value Assertions", ^{
   });
   
   it(@"can assert that floating point values are equal within a delta", ^{
-    //NOTE: float vs double precsion is what makes this unequal
+    //NOTE: float vs double precsion is what makes this fail
     [[theValue(22.0f/7.0f) should] equal:(22.0/7.0) withDelta:0.000f];
   });
   
