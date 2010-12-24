@@ -309,9 +309,9 @@
 		D15C531112C3F8C700929E2A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D15C542912C4018400929E2A /* KoansIncludes.h */,
 				D15C531C12C3F9A000929E2A /* Kiwi */,
 				D15C53E712C3FB6300929E2A /* AboutValueAssertions.m */,
-				D15C542912C4018400929E2A /* KoansIncludes.h */,
 			);
 			name = Tests;
 			sourceTree = "<group>";

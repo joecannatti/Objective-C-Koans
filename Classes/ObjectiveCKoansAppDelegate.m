@@ -11,8 +11,6 @@
 @implementation ObjectiveCKoansAppDelegate
 
 @synthesize window;
-@synthesize navigationController;
-
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -25,7 +23,6 @@
 }
 
 - (void)dealloc {
-	[navigationController release];
 	[window release];
 	[super dealloc];
 }
