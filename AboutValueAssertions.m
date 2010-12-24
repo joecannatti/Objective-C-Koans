@@ -96,7 +96,7 @@ describe(@"Value Assertions", ^{
     //but the compiler is smart about this and will use the same object if you do:
     //NSString *panda = @"panda";
     //NSString *samePanda = @"panda";
-    //mutableCopy is called to force a truly different instance and fail the test
+    //mutableCopy is called to force a new instance and fail the test
 
     NSString *panda = @"panda";
     NSString *samePanda = [panda mutableCopy];
