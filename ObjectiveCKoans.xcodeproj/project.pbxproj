@@ -66,6 +66,7 @@
 		D15C53D212C3F9A100929E2A /* NSValue+KiwiAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C539912C3F9A000929E2A /* NSValue+KiwiAdditions.m */; };
 		D15C53E812C3FB6300929E2A /* AboutValueAssertions.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C53E712C3FB6300929E2A /* AboutValueAssertions.m */; };
 		D174002512C43FE500775C72 /* AboutNil.m in Sources */ = {isa = PBXBuildFile; fileRef = D174002412C43FE500775C72 /* AboutNil.m */; };
+		D17C5AEB12CD6C8300E961B8 /* AboutNSArray.m in Sources */ = {isa = PBXBuildFile; fileRef = D17C5AEA12CD6C8300E961B8 /* AboutNSArray.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -200,8 +201,8 @@
 		D15C539812C3F9A000929E2A /* NSValue+KiwiAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+KiwiAdditions.h"; sourceTree = "<group>"; };
 		D15C539912C3F9A000929E2A /* NSValue+KiwiAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+KiwiAdditions.m"; sourceTree = "<group>"; };
 		D15C53E712C3FB6300929E2A /* AboutValueAssertions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutValueAssertions.m; sourceTree = "<group>"; };
-		D15C542912C4018400929E2A /* KoansIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KoansIncludes.h; sourceTree = "<group>"; };
 		D174002412C43FE500775C72 /* AboutNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutNil.m; sourceTree = "<group>"; };
+		D17C5AEA12CD6C8300E961B8 /* AboutNSArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutNSArray.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,10 +248,10 @@
 		D15C531112C3F8C700929E2A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D15C542912C4018400929E2A /* KoansIncludes.h */,
 				D15C531C12C3F9A000929E2A /* Kiwi */,
 				D15C53E712C3FB6300929E2A /* AboutValueAssertions.m */,
 				D174002412C43FE500775C72 /* AboutNil.m */,
+				D17C5AEA12CD6C8300E961B8 /* AboutNSArray.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -523,6 +524,7 @@
 				D15C53D212C3F9A100929E2A /* NSValue+KiwiAdditions.m in Sources */,
 				D15C53E812C3FB6300929E2A /* AboutValueAssertions.m in Sources */,
 				D174002512C43FE500775C72 /* AboutNil.m in Sources */,
+				D17C5AEB12CD6C8300E961B8 /* AboutNSArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

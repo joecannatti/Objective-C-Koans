@@ -7,7 +7,6 @@
 //
 
 #import "Kiwi.h"
-#import "KoansIncludes.h"
 
 SPEC_BEGIN(AboutValueAssertions)
 
@@ -40,10 +39,6 @@ describe(@"Value Assertions", ^{
     
   });
   
-  it(@"sometimes will ask you to fill in a value", ^{
-    [[theValue(2) should] equal:__];
-  });
-  
   it(@"can assert that a variable contains nil", ^{
     NSObject *object = [NSObject new];
     [object shouldBeNil];
@@ -68,7 +63,7 @@ describe(@"Value Assertions", ^{
   });
   
   it(@"can assert that a value is within a range", ^{
-    [[theValue(4) should] beWithin:theValue(4) of:theValue(77)];
+    [[theValue(4) should] beWithin:theValue(4) of:theValue(9)];
   });
   
   it(@"can assert that a value is less than another value", ^{
@@ -88,7 +83,7 @@ describe(@"Value Assertions", ^{
   });
   
   it(@"can assert that a value is between to values", ^{
-    [[theValue(4) should] beBetween:theValue(5) and:theValue(7)];
+    [[theValue(4) should] beBetween:theValue(5) and:theValue(6)];
   });  
   
   it(@"can assert two variable contain the same pointer", ^{

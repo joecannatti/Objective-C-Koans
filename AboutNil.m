@@ -7,7 +7,6 @@
 //
 
 #import "Kiwi.h"
-#import "KoansIncludes.h"
 
 SPEC_BEGIN(AboutNil)
 
@@ -15,10 +14,17 @@ describe(@"nil", ^{
   
   it(@"evaluates to false in conditionals", ^{
     [[NSObject shouldNot] receive:@selector(description)];    
-    NSObject *panda = __;
+    id panda = [NSObject new];
     if(panda){
       [NSObject description];
     }
+  });
+  
+  it(@"should not raise an exception if sent a message", ^{
+    [[theBlock(^{
+      id panda = nil;
+      [panda description];
+    }) should] raise];
   });
   
 });
