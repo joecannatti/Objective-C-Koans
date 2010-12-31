@@ -6,9 +6,22 @@
 //  Copyright 2010 Puppy Sound Software. All rights reserved.
 //
 
-#import "AboutNSArray.h"
+#import "Kiwi.h"
 
+SPEC_BEGIN(AboutNSArray)
 
-@implementation AboutNSArray
+describe(@"NSArray", ^{
+  
+  it(@"can be created with no arguments and be empty", ^{
+    NSArray *panda = [NSArray array];
+    [[theValue([panda count]) should] equal:theValue(1)];
+  });
+  
+  it(@"can be created with a nil terminated list of heterogeneous Objects", ^{
+   NSArray *panda = [NSArray arrayWithObjects:@"one",@"two", [NSNumber numberWithInt:3],nil];
+    [[theValue([panda count]) should] equal:theValue(1)];
+  });
+    
+});
 
-@end
+SPEC_END
