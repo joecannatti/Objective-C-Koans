@@ -7,8 +7,6 @@
 #import "KWRegisterMatchersNode.h"
 #import "KWExampleNodeVisitor.h"
 
-#if KW_BLOCKS_ENABLED
-
 @implementation KWRegisterMatchersNode
 
 #pragma mark -
@@ -19,7 +17,7 @@
         callSite = [aCallSite retain];
         namespacePrefix = [aNamespacePrefix copy];
     }
-    
+
     return self;
 }
 
@@ -51,5 +49,3 @@
 }
 
 @end
-
-#endif // #if KW_BLOCKS_ENABLED

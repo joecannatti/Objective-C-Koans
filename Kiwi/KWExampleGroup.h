@@ -6,10 +6,44 @@
 
 #import "KiwiConfiguration.h"
 #import "KWBlock.h"
-
-#if KW_BLOCKS_ENABLED
+#import "KWVerifying.h"
+#import "KWExpectationType.h"
+#import "KWExampleNode.h"
+#import "KWExampleNodeVisitor.h"
+#import "KWReporting.h"
+#import "KWExampleGroupDelegate.h"
 
 @class KWCallSite;
+@class KWContextNode;
+@class KWSpec;
+@class KWMatcherFactory;
+
+@interface KWExampleGroup : NSObject <KWExampleNodeVisitor, KWReporting> {
+@private
+    NSArray *contextNodeStack;
+    id<KWExampleNode> exampleNode;
+    BOOL passed;
+}
+
+- (id)initWithExampleNode:(id<KWExampleNode>)node contextNodeStack:(NSArray *)stack;
+
+#pragma mark - Adding Verifiers
+
+- (id)addVerifier:(id<KWVerifying>)aVerifier;
+- (id)addExistVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
+- (id)addMatchVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
+- (id)addAsyncVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite timeout:(NSInteger)timeout;
+
+#pragma mark - Running
+
+- (void)runWithDelegate:(id<KWExampleGroupDelegate>)delegate;
+
+#pragma mark -
+#pragma mark Anonymous It Node Descriptions
+
+- (NSString *)generateDescriptionForAnonymousItNode;
+
+@end
 
 #pragma mark -
 #pragma mark Building Example Groups
@@ -22,6 +56,7 @@ void afterAll(KWVoidBlock aBlock);
 void beforeEach(KWVoidBlock aBlock);
 void afterEach(KWVoidBlock aBlock);
 void it(NSString *aDescription, KWVoidBlock aBlock);
+void specify(KWVoidBlock aBlock);
 void pending(NSString *aDescription, KWVoidBlock ignoredBlock);
 
 void describeWithCallSite(KWCallSite *aCallSite, NSString *aDescription, KWVoidBlock aBlock);
@@ -34,4 +69,4 @@ void afterEachWithCallSite(KWCallSite *aCallSite, KWVoidBlock aBlock);
 void itWithCallSite(KWCallSite *aCallSite, NSString *aDescription, KWVoidBlock aBlock);
 void pendingWithCallSite(KWCallSite *aCallSite, NSString *aDescription, KWVoidBlock ignoredBlock);
 
-#endif // #if KW_BLOCKS_ENABLED
+#define xit(...) pending(__VA_ARGS__)

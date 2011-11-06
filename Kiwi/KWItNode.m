@@ -6,10 +6,12 @@
 
 #import "KWItNode.h"
 #import "KWExampleNodeVisitor.h"
-
-#if KW_BLOCKS_ENABLED
+#import "KWExampleGroup.h"
+#import "KWVerifying.h"
 
 @implementation KWItNode
+
+@synthesize exampleGroup;
 
 #pragma mark -
 #pragma mark Initializing
@@ -25,6 +27,16 @@
     [aVisitor visitItNode:self];
 }
 
-@end
+#pragma mark -
+#pragma mark Runtime Description support
 
-#endif // #if KW_BLOCKS_ENABLED
+- (NSString *)description
+{
+  NSString *description = [super description];
+  if (description == nil) {
+    description = [self.exampleGroup generateDescriptionForAnonymousItNode];
+  }
+  return description;
+}
+
+@end

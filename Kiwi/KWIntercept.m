@@ -88,7 +88,7 @@ Class KWInterceptClassForCanonicalClass(Class canonicalClass) {
 
     Class interceptMetaClass = object_getClass(interceptClass);
     class_addMethod(interceptMetaClass, @selector(forwardInvocation:), (IMP)KWInterceptedForwardInvocation, "v@:@");
-    
+
     return interceptClass;
 }
 
@@ -102,6 +102,12 @@ Class KWRealClassForClass(Class aClass) {
 #pragma mark -
 #pragma mark Enabling Intercepting
 
+static BOOL IsTollFreeBridged(Class class, id obj)
+{
+    // this is a naive check, but good enough for the purposes of failing fast
+    return [NSStringFromClass(class) hasPrefix:@"NSCF"];
+}
+
 // Canonical class is the non-intercept, non-metaclass, class for an object.
 //
 // (e.g. [Animal class] would be canonical, not
@@ -111,6 +117,10 @@ Class KWRealClassForClass(Class aClass) {
 Class KWSetupObjectInterceptSupport(id anObject) {
     Class objectClass = object_getClass(anObject);
 
+    if (IsTollFreeBridged(objectClass, anObject)) {
+        [NSException raise:@"KWTollFreeBridgingInterceptException" format:@"Attempted to stub object of class %@. Kiwi does not support setting expectation or stubbing methods on toll-free bridged objects.", NSStringFromClass(objectClass)];
+    }
+
     if (KWClassIsInterceptClass(objectClass))
         return objectClass;
 
@@ -119,7 +129,8 @@ Class KWSetupObjectInterceptSupport(id anObject) {
     Class canonicalInterceptClass = KWInterceptClassForCanonicalClass(canonicalClass);
     Class interceptClass = objectIsClass ? object_getClass(canonicalInterceptClass) : canonicalInterceptClass;
 
-    anObject->isa = interceptClass;
+    object_setClass(anObject, interceptClass);
+
     return interceptClass;
 }
 

@@ -5,9 +5,15 @@
 //
 
 #import "KWMatcherFactory.h"
-#import </usr/include/objc/runtime.h>
+#import <objc/runtime.h>
 #import "KWMatching.h"
 #import "KWStringUtilities.h"
+#import "KWUserDefinedMatcher.h"
+#import "KWMatchers.h"
+
+@interface KWMatcherFactory()
+- (Class)matcherClassForSelector:(SEL)aSelector subject:(id)anObject;
+@end
 
 @implementation KWMatcherFactory
 
@@ -24,6 +30,7 @@
 }
 
 - (void)dealloc {
+    [registeredMatcherClasses release];
     [matcherClassChains release];
     [super dealloc];
 }
@@ -83,14 +90,22 @@
 
         free(classes);
     }
-    
+
     for (Class matcherClass in matcherClasses) {
         NSString *className = NSStringFromClass(matcherClass);
-        
+
         if (KWStringHasStrictWordPrefix(className, aNamespacePrefix))
             [self registerMatcherClass:matcherClass];
     }
 }
+
+#pragma mark -
+#pragma mark Registering User Defined Matchers
+
+//- (void)registerUserDefinedMatcherWithBuilder:(KWUserDefinedMatcherBuilder *)aBuilder
+//{
+//
+//}
 
 #pragma mark -
 #pragma mark Getting Method Signatures
@@ -106,16 +121,32 @@
 }
 
 #pragma mark -
-#pragma mark Getting Matcher Classes
+#pragma mark Getting Matchers
+
+- (KWMatcher *)matcherFromInvocation:(NSInvocation *)anInvocation subject:(id)subject {
+    SEL selector = [anInvocation selector];
+
+    // try and match a built-in or registered matcher class
+    Class matcherClass = [self matcherClassForSelector:selector subject:subject];
+
+    if (matcherClass == nil) {
+        // see if we can match with a user-defined matcher instead
+        return [[KWMatchers matchers] matcherForSelector:selector subject:subject];
+    }
+    return [[[matcherClass alloc] initWithSubject:subject] autorelease];
+}
+
+#pragma mark -
+#pragma mark Private methods
 
 - (Class)matcherClassForSelector:(SEL)aSelector subject:(id)anObject {
     NSArray *matcherClassChain = [matcherClassChains objectForKey:NSStringFromSelector(aSelector)];
-    
+
     for (Class matcherClass in matcherClassChain) {
         if ([matcherClass canMatchSubject:anObject])
             return matcherClass;
     }
-    
+
     return nil;
 }
 

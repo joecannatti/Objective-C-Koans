@@ -47,7 +47,7 @@
 - (BOOL)evaluate {
     if (![self.subject respondsToSelector:@selector(compare:)])
         [NSException raise:@"KWMatcherException" format:@"subject does not respond to -compare:"];
-    
+
     NSComparisonResult lowerResult = [self.subject compare:self.lowerEndpoint];
     NSComparisonResult upperResult = [self.subject compare:self.upperEndpoint];
     return (lowerResult == NSOrderedDescending || lowerResult == NSOrderedSame) &&
@@ -62,6 +62,11 @@
                                       [KWFormatter formatObject:self.lowerEndpoint],
                                       [KWFormatter formatObject:self.upperEndpoint],
                                       [KWFormatter formatObject:self.subject]];
+}
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"be between %@ and %@", self.lowerEndpoint, self.upperEndpoint];
 }
 
 #pragma mark -

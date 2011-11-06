@@ -6,6 +6,7 @@
 
 #import "KWEqualMatcher.h"
 #import "KWFormatter.h"
+#import "KWValue.h"
 
 @interface KWEqualMatcher()
 
@@ -42,6 +43,10 @@
 #pragma mark Matching
 
 - (BOOL)evaluate {
+    /** handle this as a special case; KWValue supports NSNumber equality but not vice-versa **/
+    if ([self.subject isKindOfClass:[NSNumber class]] && [self.otherSubject isKindOfClass:[KWValue class]]) {
+        return [self.otherSubject isEqual:self.subject];
+    }
     return [self.subject isEqual:self.otherSubject];
 }
 
@@ -57,6 +62,11 @@
 - (NSString *)failureMessageForShouldNot {
     return [NSString stringWithFormat:@"expected subject not to equal %@",
                                       [KWFormatter formatObject:self.otherSubject]];
+}
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"equal %@", [KWFormatter formatObject:self.otherSubject]];
 }
 
 #pragma mark -
