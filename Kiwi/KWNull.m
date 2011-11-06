@@ -17,7 +17,7 @@ static KWNull *sharedNull = nil;
     if (sharedNull == nil) {
         sharedNull = [[super allocWithZone:nil] init];
     }
-    
+
     return sharedNull;
 }
 
@@ -37,7 +37,7 @@ static KWNull *sharedNull = nil;
     return NSUIntegerMax;
 }
 
-- (void)release {
+- (oneway void)release {
 }
 
 - (id)autorelease {

@@ -13,7 +13,8 @@ dsa_priv.pem
 *.perspective
 *.perspectivev3
 *.pbxuser
-
+ObjectiveCKoans.xcodeproj/xcuserdata
+ObjectiveCKoans.xcodeproj/project.xcworkspace/xcuserdata
 
 # Generated files
 VersionX-revision.h

@@ -31,7 +31,7 @@
         callSite = [aCallSite retain];
         reporter = aReporter;
     }
-    
+
     return self;
 }
 
@@ -43,6 +43,14 @@
     [callSite release];
     [subject release];
     [super dealloc];
+}
+
+- (NSString *)descriptionForAnonymousItNode
+{
+  if (self.expectationType == KWExpectationTypeShould) {
+    return @"should exist";
+  }
+  return @"should not exist";
 }
 
 #pragma mark -

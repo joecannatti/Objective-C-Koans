@@ -35,7 +35,7 @@
 - (BOOL)evaluate {
     if (![self.subject respondsToSelector:@selector(boolValue)])
         [NSException raise:@"KWMatcherException" format:@"subject does not respond to -boolValue"];
-    
+
     return [self.subject boolValue] == self.expectedValue;
 }
 
@@ -45,6 +45,14 @@
 - (NSString *)failureMessageForShould {
     return [NSString stringWithFormat:@"expected subject to be %@",
                                        expectedValue ? @"true" : @"false"];
+}
+
+- (NSString *)description
+{
+  if (self.expectedValue == YES) {
+    return @"be true";
+  }
+  return @"be false";
 }
 
 #pragma mark -

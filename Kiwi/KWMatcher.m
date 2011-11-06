@@ -6,6 +6,7 @@
 
 #import "KWMatcher.h"
 #import "KWFormatter.h"
+#import "KWFutureObject.h"
 
 @implementation KWMatcher
 
@@ -16,7 +17,7 @@
     if ((self = [super init])) {
         subject = [anObject retain];
     }
-    
+
     return self;
 }
 
@@ -33,6 +34,14 @@
 #pragma mark Properties
 
 @synthesize subject;
+
+- (id)subject
+{
+  if ([subject isKindOfClass:[KWFutureObject class]]) {
+    return [(KWFutureObject *)subject object];
+  }
+  return subject;
+}
 
 #pragma mark -
 #pragma mark Getting Matcher Strings
@@ -67,16 +76,16 @@
 - (NSString *)failureMessageForShouldNot {
     NSString *failureMessageForShould = [self failureMessageForShould];
     NSRange markerRange = [failureMessageForShould rangeOfString:@" to "];
-    
+
     if (markerRange.location == NSNotFound)
         return @"subject did not meet expectation";
-    
+
     NSRange replacementRange = NSMakeRange(0, markerRange.location + markerRange.length);
     NSString *message = [failureMessageForShould stringByReplacingOccurrencesOfString:@" to "
                                                                         withString:@" not to "
                                                                            options:0
                                                                              range:replacementRange];
-    return message;    
+    return message;
 }
 
 @end
