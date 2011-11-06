@@ -6,10 +6,10 @@ Originally created by [Joe Cannatti] [1], inspired by the reknowned [Ruby Koans]
 Running the Koans
 -----------------
 
-# git clone this repo
-# Open the XCode project
-# Run the tests with menu: Product->Test or Command-U
-# Make each test pass to learn about Objective-C
+1. git clone this repo
+2. Open the XCode project
+3. Run the tests with menu: Product->Test or Command-U
+4. Make each test pass to learn about Objective-C
 
 Contributors
 -------------
