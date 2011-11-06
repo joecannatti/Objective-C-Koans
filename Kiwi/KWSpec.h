@@ -6,44 +6,26 @@
 
 #import "KiwiConfiguration.h"
 #import <SenTestingKit/SenTestingKit.h>
-#import "KWBlock.h"
-#import "KWExampleNodeVisitor.h"
 #import "KWExpectationType.h"
-#import "KWReporting.h"
+#import "KWVerifying.h"
+#import "KWExampleGroupDelegate.h"
 
-#if KW_BLOCKS_ENABLED
 
 @class KWCallSite;
-@class KWContextNode;
-@class KWMatcherFactory;
 
-@protocol KWVerifying;
-
-@interface KWSpec : SenTestCase<KWExampleNodeVisitor, KWReporting> {
-@private
-    KWMatcherFactory *matcherFactory;
-    NSMutableArray *verifiers;
-    NSMutableArray *exampleNodeStack;
-}
-
-#pragma mark -
-#pragma mark Configuring Spec Environments
-
-- (void)configureEnvironment;
-- (void)cleanupEnvironment;
+@interface KWSpec : SenTestCase<KWExampleGroupDelegate>
 
 #pragma mark -
 #pragma mark Adding Verifiers
 
-- (id)addVerifier:(id<KWVerifying>)aVerifier;
-- (id)addExistVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
-- (id)addMatchVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
++ (id)addVerifier:(id<KWVerifying>)aVerifier;
++ (id)addExistVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
++ (id)addMatchVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite;
++ (id)addAsyncVerifierWithExpectationType:(KWExpectationType)anExpectationType callSite:(KWCallSite *)aCallSite timeout:(NSInteger)timeout;
 
 #pragma mark -
 #pragma mark Building Example Groups
 
-- (void)buildExampleGroups;
++ (void)buildExampleGroups;
 
 @end
-
-#endif // #if KW_BLOCKS_ENABLED

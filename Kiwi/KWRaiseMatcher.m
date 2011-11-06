@@ -54,13 +54,13 @@
         [self.subject performSelector:self.selector];
     } @catch (NSException *anException) {
         self.actualException = anException;
-        
+
         if ([self.exception name] != nil && ![[self.exception name] isEqualToString:[anException name]])
             return NO;
-        
+
         if ([self.exception reason] != nil && ![[self.exception reason] isEqualToString:[anException reason]])
             return NO;
-        
+
         return YES;
     }
 
@@ -75,7 +75,7 @@
         return @"nothing";
 
     NSString *namePhrase = nil;
-    
+
     if ([anException name] == nil)
         namePhrase = @"exception";
     else
@@ -83,7 +83,7 @@
 
     if ([anException reason] == nil)
         return namePhrase;
-    
+
     return [NSString stringWithFormat:@"%@ \"%@\"", namePhrase, [anException reason]];
 }
 
@@ -96,6 +96,11 @@
 - (NSString *)failureMessageForShouldNot {
     return [NSString stringWithFormat:@"expected %@ not to be raised",
                                       [[self class] exceptionPhraseWithException:self.actualException]];
+}
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"raise %@ when sent %@", [[self class] exceptionPhraseWithException:self.exception], NSStringFromSelector(self.selector)];
 }
 
 #pragma mark -

@@ -205,7 +205,7 @@
     if (KWObjCTypeEqualToObjCType(anObjCType, @encode(BOOL)))
         return [self boolData];
     else if (KWObjCTypeEqualToObjCType(anObjCType, @encode(char)))
-        return [self charData];    
+        return [self charData];
     else if (KWObjCTypeEqualToObjCType(anObjCType, @encode(double)))
         return [self doubleData];
     else if (KWObjCTypeEqualToObjCType(anObjCType, @encode(float)))
@@ -317,7 +317,7 @@
 - (NSUInteger)hash {
     if (self.isNumeric)
         return [[self numberValue] hash];
-    
+
     return [self.value hash];
 }
 
@@ -326,17 +326,24 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    if (![object isKindOfClass:[KWValue class]])
-        return NO;
-    
-    return [self isEqualToKWValue:object];
+    if ([object isKindOfClass:[KWValue class]])
+        return [self isEqualToKWValue:object];
+
+    if ([object isKindOfClass:[NSNumber class]])
+      return [self isEqualToNumber:object];
+
+    return NO;
 }
 
 - (BOOL)isEqualToKWValue:(KWValue *)aValue {
     if (self.isNumeric && aValue.isNumeric)
-        return [[self numberValue] isEqualToNumber:[aValue numberValue]];
+        return [self isEqualToNumber:[aValue numberValue]];
     else
         return [self.value isEqual:aValue.value];
+}
+
+- (BOOL)isEqualToNumber:(NSNumber *)aValue {
+    return [[self numberValue] isEqualToNumber:aValue];
 }
 
 #pragma mark -
@@ -345,7 +352,7 @@
 - (NSString *)description {
     if ([self isNumeric])
         return [[self numberValue] description];
-    
+
     return [self.value description];
 }
 

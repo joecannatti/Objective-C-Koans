@@ -7,8 +7,6 @@
 #import "KiwiConfiguration.h"
 #import "KWBlock.h"
 
-#if KW_BLOCKS_ENABLED
-
 @class KWCallSite;
 
 @interface KWBlockNode : NSObject {
@@ -31,7 +29,7 @@
 #pragma mark -
 #pragma mark Getting Descriptions
 
-@property (nonatomic, readonly) NSString *description;
+@property (nonatomic, copy) NSString *description;
 
 #pragma mark -
 #pragma mark Getting Blocks
@@ -39,5 +37,3 @@
 @property (nonatomic, readonly) KWVoidBlock block;
 
 @end
-
-#endif // #if KW_BLOCKS_ENABLED
