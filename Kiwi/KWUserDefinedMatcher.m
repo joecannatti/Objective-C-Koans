@@ -52,9 +52,9 @@
 }
 
 - (void)setSubject:(id)aSubject {
-    if (aSubject != subject) {
-        [subject release];
-        subject = [aSubject retain];
+    if (aSubject != self.subject) {
+        [self.subject release];
+        self.subject = [aSubject retain];
     }
 }
 
