@@ -8,8 +8,7 @@
 #import "KWMatching.h"
 
 @interface KWMatcher : NSObject<KWMatching> {
-@protected
-    id subject;
+@protected id subject;
 }
 
 #pragma mark -
