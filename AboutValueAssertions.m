@@ -22,7 +22,6 @@ describe(@"Value Assertions", ^{
   
   context(@"can assert equality", ^{
     
-    __block int expectedValue;
     __block int actualValue;
     
     beforeEach(^{
