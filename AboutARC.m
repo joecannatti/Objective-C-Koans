@@ -1,68 +1,44 @@
+//
+//  AboutAssertions.m
+//  ObjectiveCKoans
+//
+//  Created by Curtis Schofield
+//  Copyright 2011 BlazingCloud, Curtis J Schofield
+//
+
 #if __has_feature(objc_arc)
-#define INIT_FAILED  NSLog(@"INIT_FAILED %s:%d", __FILE__, __LINE__);
+
+// Extending NSObject
 #import <Foundation/Foundation.h>
 
-// Make reference to a Person before it is defined
+// Make reference to a Person and PhoneNumber before they exist
 @class Person;
+@class PhoneNumber;
+
+@interface Person : NSObject 
+// Example : create the property thingy with 'strong' ARC property
+//
+// ARC Notes : http://www.mikeash.com/pyblog/friday-qa-2011-09-30-automatic-reference-counting.html
+//
+// More on ARC from the compiler team : http://clang.llvm.org/docs/AutomaticReferenceCounting.html
+//
+//  @property (nonatomic,strong) NSString *thingy;
+@end
 
 @interface PhoneNumber : NSObject
-@property (nonatomic,strong) NSString *countryCode;
-@property (nonatomic,strong) NSString *areaCode;
-@property (nonatomic,strong) NSString *digits;
-@property (nonatomic,weak) Person *owner;    
-@end
-
-@implementation PhoneNumber
-@synthesize countryCode,areaCode,digits,owner;
--(PhoneNumber*) initWithCountryCode:(NSString *) _countryCode 
-                           areaCode: (NSString *) _areaCode 
-                             digits: (NSString *) _digits {
-  self = [super init];
-  if (self) { // alloc succeeds
-    self.countryCode = _countryCode;
-    self.areaCode = _areaCode;
-    self.digits = _digits;
-    self.owner = nil;
-  } else {
-    INIT_FAILED
-  }
-  
-  return self;
-  
-}
-
-@end
-
-@interface Person : NSObject
-  @property (nonatomic, strong) NSString *firstName;
-  @property (nonatomic, strong) NSString *lastName;
-  @property (nonatomic, strong) NSNumber *yearOfBirth;
-  @property (nonatomic, strong) Person *spouse;
-  @property (nonatomic, strong) PhoneNumber *phoneNumber;
-
-@end
-
-@implementation Person
-  @synthesize firstName, lastName, yearOfBirth, spouse, phoneNumber;
-
-- (void)setPhoneNumber:(PhoneNumber *) _phoneNumber {
-    phoneNumber = _phoneNumber;
-    phoneNumber.owner = self;
-}
-
-
+  // We would explicitly tell the ARC system that we want a weak reference to Person
+  // ie: don't keep the Person around if it's only retained reference is weak
+  @property (nonatomic, weak) Person *owner;
 @end
 
 #import "Kiwi.h"
-
-
 SPEC_BEGIN(AboutARC)
 
 describe(@"About Automatic Reference Counting", ^{
   
   context(@"PhoneNumber",^{
     __block PhoneNumber * phoneNumber;
-  
+    
     beforeAll(^{
       phoneNumber = [[PhoneNumber alloc] 
                      initWithCountryCode:@"1"
